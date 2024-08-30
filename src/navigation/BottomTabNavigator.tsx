@@ -5,6 +5,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import MapScreen from '../screens/MapScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import CustomHeader from '../components/CustomHeader';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,9 +29,18 @@ const BottomTabNavigator: React.FC = () => {
           },
         })}
       >
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Profile" options={{
+            header: (props) => <CustomHeader {...props} title="Profile" />,
+          }} component={ProfileScreen} 
+        />
+        <Tab.Screen name="Map" options={{
+            header: (props) => <CustomHeader {...props} title="Map Screen" />,
+          }} component={MapScreen}
+        />
+        <Tab.Screen name="Settings" options={{
+            header: (props) => <CustomHeader {...props} title="Settings" />,
+          }}component={SettingsScreen}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -6,6 +6,7 @@ import SearchBar from '../components/Map/SearchBar';
 import SearchResults from '../components/Map/SearchResults';
 import MapComponent from '../components/Map/MapComponent';
 import PinSelectionMenu from '../components/Map/PinSelectionMenu';
+import CenterOnUserButton from '../components/Map/CenterOnUserButton';
 
 import pin1 from '../../assets/images/1.png';
 import pin2 from '../../assets/images/2.png';
@@ -92,6 +93,23 @@ export default function MapScreen() {
     }
   };
 
+  const handleCenterOnUser = async () => {
+    try {
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      const newRegion = {
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      };
+      setLocation(newRegion);   
+
+      mapRef.current?.animateToRegion(newRegion, 1000);
+    } catch (error) {
+      console.error('Error getting location:', error);
+    }
+  };
+
   const clearSearch = () => {
     setSearchQuery('');
     setSearchResults([{ lat: '', lon: '', display_name: 'Current Location', isCurrentLocation: true }]);
@@ -163,6 +181,7 @@ export default function MapScreen() {
         onMarkerDragEnd={onMarkerDragEnd}
         confirmMarker={confirmMarker}
       />
+      <CenterOnUserButton onPress={handleCenterOnUser} />
       <PinSelectionMenu
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
+// import CenterOnUserButton from './CenterOnUserButton';
 
 interface LocationType {
   latitude: number;
@@ -29,40 +30,46 @@ interface MapComponentProps {
 
 const MapComponent: React.FC<MapComponentProps> = ({ mapRef, location, markers, onMarkerDragEnd, confirmMarker }) => {
   return (
-    <MapView
-      ref={mapRef}
-      style={styles.map}
-      provider={PROVIDER_DEFAULT}
-      region={location ?? {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-      }}
-      showsUserLocation={true}
-    >
-      {markers.map((marker) => (
-        <Marker
-          key={marker.id}
-          coordinate={marker.coordinate}
-          draggable
-          onDragEnd={(e) => onMarkerDragEnd(marker.id, e)}
-          title={`Marqueur ${marker.id}`}
-          description={marker.isConfirmed ? "Position confirmée" : "Déplacer pour ajuster"}
-        >
-          <Image
-            source={marker.pinImage}
-            style={{ width: 60, height: 60 }}
-          />
-        </Marker>
-      ))}
-    </MapView>
+    <View style={styles.container}>
+      <MapView
+        ref={mapRef}
+        style={styles.map}
+        provider={PROVIDER_DEFAULT}
+        region={location ?? {
+          latitude: 0,
+          longitude: 0,
+          latitudeDelta: 0,
+          longitudeDelta: 0,
+        }}
+        showsUserLocation={true}
+        showsMyLocationButton={false}
+      >
+        {markers.map((marker) => (
+          <Marker
+            key={marker.id}
+            coordinate={marker.coordinate}
+            draggable
+            onDragEnd={(e) => onMarkerDragEnd(marker.id, e)}
+            title={`Toboggan ${Number(marker.id) + 1}`}
+            description={marker.isConfirmed ? "Position confirmée" : "Déplacer pour ajuster"}
+          >
+            <Image
+              source={marker.pinImage}
+              style={{ width: 60, height: 60 }}
+            />
+          </Marker>
+        ))}
+      </MapView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  container: {
+    flex: 1,
   },
 });
 

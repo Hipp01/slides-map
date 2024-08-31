@@ -29,7 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, searchLocations, cle
 const styles = StyleSheet.create({
   searchContainer: {
     position: 'absolute',
-    width: '100%',
+    width: '85%',
     top: 10,
     zIndex: 1,
     flexDirection: 'row',

@@ -37,12 +37,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchResults, handleLoca
 
 const styles = StyleSheet.create({
   container: {
-    width: '95%',
+    width: '80%',
     top: 60,
     backgroundColor: 'white',
     zIndex: 1,
     maxHeight: 200,
     marginHorizontal: 10,
+    borderRadius: 5,
+    position: 'absolute',
   },
   list: {
     maxHeight: 200,

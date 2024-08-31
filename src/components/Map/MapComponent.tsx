@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
-// import CenterOnUserButton from './CenterOnUserButton';
 
 interface LocationType {
   latitude: number;
@@ -18,6 +17,7 @@ interface MarkerType {
   };
   isConfirmed: boolean;
   pinImage: any;
+  cotation: string;
 }
 
 interface MapComponentProps {
@@ -50,7 +50,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ mapRef, location, markers, 
             coordinate={marker.coordinate}
             draggable
             onDragEnd={(e) => onMarkerDragEnd(marker.id, e)}
-            title={`Toboggan ${Number(marker.id) + 1}`}
+            title={`${marker.cotation} ${Number(marker.id.split('-')[1]) + 1}`}
             description={marker.isConfirmed ? "Position confirmée" : "Déplacer pour ajuster"}
           >
             <Image

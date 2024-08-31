@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, ImageSourcePropType } from 'react-native';
 
-import pin1 from '../../assets/images/1.png';
-import pin2 from '../../assets/images/2.png';
-import pin3 from '../../assets/images/3.png';
-import pin4 from '../../assets/images/4.png';
+const pin1: ImageSourcePropType = require('../../assets/images/1.png');
+const pin2: ImageSourcePropType = require('../../assets/images/2.png');
+const pin3: ImageSourcePropType = require('../../assets/images/3.png');
+const pin4: ImageSourcePropType = require('../../assets/images/4.png');
 
-const pins = [
+const pins: { name: string, description: string, image: ImageSourcePropType }[] = [
     {
         name: 'No Fun',
         description: 'Celui qui même avec du savon ne glisse pas !',
         image: pin1,
     },
     {
-        name: 'Tout doux',
+        name: 'Tout Doux',
         description: 'Celui qui dit à la fin “Smooooooth”',
         image: pin2,
     },

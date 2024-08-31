@@ -15,11 +15,26 @@ import pin4 from '../../assets/images/4.png';
 import MapView from 'react-native-maps';
 import { SearchResult } from '../../types';
 
+type MarkerType = {
+  id: string;
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  };
+  isConfirmed: boolean;
+  pinImage: any;
+  cotation: string;
+};
+
+type MarkerGroups = {
+  [key: string]: MarkerType[];
+};
+
 export default function MapScreen() {
   const [location, setLocation] = useState<{ latitude: number; longitude: number; latitudeDelta: number; longitudeDelta: number } | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [markers, setMarkers] = useState<{ id: string; coordinate: { latitude: number; longitude: number; latitudeDelta: number; longitudeDelta: number; }; isConfirmed: boolean; pinImage: any; }[]>([]);
+  const [markers, setMarkers] = useState<MarkerType[]>([]);
   const [selectedPin, setSelectedPin] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const mapRef = useRef<MapView | null>(null);
@@ -115,20 +130,49 @@ export default function MapScreen() {
     setSearchResults([{ lat: '', lon: '', display_name: 'Current Location', isCurrentLocation: true }]);
   };
 
+  const getCotationForPin = (pin: any): string => {
+    if (pin === pin1) return 'No Fun';
+    if (pin === pin2) return 'Tout Doux';
+    if (pin === pin3) return 'Barbare';
+    if (pin === pin4) return 'Furieux';
+    return 'Unknown';
+  };
+
+  const getUpdatedMarkersWithIds = (markers: MarkerType[]): MarkerType[] => {
+    const markerGroups: MarkerGroups = markers.reduce((acc, marker) => {
+      const { cotation } = marker;
+      if (!acc[cotation]) {
+        acc[cotation] = [];
+      }
+      acc[cotation].push(marker);
+      return acc;
+    }, {} as MarkerGroups);
+
+    return Object.values(markerGroups).flatMap((group, index) =>
+      group.map((marker, i) => ({
+        ...marker,
+        id: `${index}-${i}`,
+      }))
+    );
+  };
+
   const addMarker = () => {
     if (selectedPin && location) {
-      const newMarker = {
-        id: markers.length.toString(),
+      const newMarker: MarkerType = {
+        id: '',
         coordinate: {
           latitude: location.latitude,
           longitude: location.longitude,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
         },
         isConfirmed: false,
-        pinImage: selectedPin
+        pinImage: selectedPin,
+        cotation: getCotationForPin(selectedPin),
       };
-      setMarkers([...markers, newMarker]);
+
+      const updatedMarkers = [...markers, newMarker];
+      const markersWithIds = getUpdatedMarkersWithIds(updatedMarkers);
+
+      setMarkers(markersWithIds);
       setSelectedPin(null);
       setIsMenuOpen(false);
     } else {
@@ -153,9 +197,7 @@ export default function MapScreen() {
           coordinate: {
             latitude,
             longitude,
-            latitudeDelta: marker.coordinate.latitudeDelta,
-            longitudeDelta: marker.coordinate.longitudeDelta,
-          }
+          },
         } : marker
       )
     );

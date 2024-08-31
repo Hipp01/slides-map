@@ -5,14 +5,21 @@ import { MaterialIcons } from '@expo/vector-icons';
 interface PinSelectionMenuProps {
   isMenuOpen: boolean;
   setIsMenuOpen: (isOpen: boolean) => void;
-  selectedPin: string | null;
-  setSelectedPin: (pin: string) => void;
+  selectedPin: any;
+  setSelectedPin: (pin: any) => void;
   addMarker: () => void;
-  pins: (string | any)[];
+  pins: any[];
 }
 
-const PinSelectionMenu: React.FC<PinSelectionMenuProps> = ({ isMenuOpen, setIsMenuOpen, selectedPin, setSelectedPin, addMarker, pins }) => {
-  const renderImage = (pin: string | any) => {
+const PinSelectionMenu: React.FC<PinSelectionMenuProps> = ({
+  isMenuOpen,
+  setIsMenuOpen,
+  selectedPin,
+  setSelectedPin,
+  addMarker,
+  pins,
+}) => {
+  const renderImage = (pin: any) => {
     if (typeof pin === 'string' && pin.startsWith('http')) {
       return { uri: pin };
     } else {
@@ -92,6 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     padding: 10,
     borderRadius: 5,
+    marginTop: 10,
   },
 });
 

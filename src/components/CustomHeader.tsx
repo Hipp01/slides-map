@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ParamListBase } from '@react-navigation/native';
 
-type CustomHeaderProps = {
+export interface CustomHeaderProps {
   navigation: StackNavigationProp<ParamListBase>;
   title: string;
 };

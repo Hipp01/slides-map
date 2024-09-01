@@ -49,7 +49,7 @@ const PinSelectionMenu: React.FC<PinSelectionMenuProps> = ({
         </View>
       )}
       <TouchableOpacity style={styles.addButton} onPress={() => setIsMenuOpen(!isMenuOpen)}>
-        <MaterialIcons name="add" size={30} color="white" />
+        <MaterialIcons name="add-location" size={24} color="white" />
       </TouchableOpacity>
     </View>
   );
@@ -60,46 +60,40 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   addButton: {
-    backgroundColor: 'green',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 2,
+    backgroundColor: '#ff5722',
+    padding: 12,
+    borderRadius: 50,
   },
   pinSelectionContainer: {
+    backgroundColor: 'white',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 5,
-    padding: 5,
     marginBottom: 10,
-    elevation: 5,
-    width: 60,
+    borderRadius: 10,
+    paddingBottom: 5,
   },
   pinOption: {
-    margin: 5,
-    padding: 2,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: 'transparent',
+    padding: 10,
+    borderRadius: 50,
   },
   selectedPinOption: {
-    borderColor: 'blue',
+    borderWidth: 2,
+    borderColor: '#ff5722',
+    padding: 0,
+    margin: 5,
   },
   pinImage: {
     width: 50,
     height: 50,
   },
   confirmButton: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
+    backgroundColor: '#4caf50',
+    padding: 12,
+    borderRadius: 50,
+    marginTop: 5,
   },
 });
 

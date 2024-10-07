@@ -227,7 +227,7 @@ export default function MapScreen() {
         mapType={mapType}
       />
       <CenterOnUserButton onPress={handleCenterOnUser} />
-      <ChangeStyleMap onChangeMapType={() => setMapType(prevMapType => prevMapType === 'standard' ? 'satellite' : 'standard')} />
+      <ChangeStyleMap onChangeMapType={() => setMapType(prevMapType => prevMapType === 'standard' ? 'hybrid' : 'standard')} />
       <PinSelectionMenu
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}

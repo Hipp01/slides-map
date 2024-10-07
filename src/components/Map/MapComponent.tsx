@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_DEFAULT, MapType } from 'react-native-maps';
 
 interface LocationType {
   latitude: number;
@@ -26,9 +26,10 @@ interface MapComponentProps {
   markers: MarkerType[];
   onMarkerDragEnd: (id: string, e: { nativeEvent: { coordinate: { latitude: number; longitude: number } } }) => void;
   confirmMarker: (id: string) => void;
+  mapType: MapType;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ mapRef, location, markers, onMarkerDragEnd, confirmMarker }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ mapRef, location, markers, onMarkerDragEnd, confirmMarker, mapType }) => {
   return (
     <View style={styles.container}>
       <MapView
@@ -43,6 +44,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ mapRef, location, markers, 
         }}
         showsUserLocation={true}
         showsMyLocationButton={false}
+        mapType={mapType}
+        toolbarEnabled={false}
       >
         {markers.map((marker) => (
           <Marker

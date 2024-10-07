@@ -7,12 +7,13 @@ import SearchResults from '../components/Map/SearchResults';
 import MapComponent from '../components/Map/MapComponent';
 import PinSelectionMenu from '../components/Map/PinSelectionMenu';
 import CenterOnUserButton from '../components/Map/CenterOnUserButton';
+import ChangeStyleMap from '../components/Map/ChangeStyleMap';
 
 import pin1 from '../../assets/images/1.png';
 import pin2 from '../../assets/images/2.png';
 import pin3 from '../../assets/images/3.png';
 import pin4 from '../../assets/images/4.png';
-import MapView from 'react-native-maps';
+import MapView, { MapType } from 'react-native-maps';
 import { SearchResult } from '../../types';
 
 type MarkerType = {
@@ -38,6 +39,7 @@ export default function MapScreen() {
   const [selectedPin, setSelectedPin] = useState<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const mapRef = useRef<MapView | null>(null);
+  const [mapType, setMapType] = useState<MapType>('standard');
 
   useEffect(() => {
     (async () => {
@@ -222,8 +224,10 @@ export default function MapScreen() {
         markers={markers}
         onMarkerDragEnd={onMarkerDragEnd}
         confirmMarker={confirmMarker}
+        mapType={mapType}
       />
       <CenterOnUserButton onPress={handleCenterOnUser} />
+      <ChangeStyleMap onChangeMapType={() => setMapType(prevMapType => prevMapType === 'standard' ? 'satellite' : 'standard')} />
       <PinSelectionMenu
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
